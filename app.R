@@ -2,9 +2,9 @@ library(shiny)
 library(ggplot2)
 library(readr)
 library(scales)
-file_path<-"C:\\Users\\jwest\\Documents\\COVID\\"
+library(dplyr)
 
-data <- read_csv(paste0(file_path,"R\\","processed.csv"))
+data <- read_csv("https://raw.githubusercontent.com/jwestreich/jayscovidgraphs/main/processed.csv")
 
 ui <- fluidPage(
   titlePanel("Jay's COVID Graphs"),
@@ -12,7 +12,7 @@ ui <- fluidPage(
   plotOutput("cases_plot"),
   plotOutput("deaths_plot"),
   tags$footer(
-    a(href = "https://docs.google.com/document/d/1gWLn1TP_fT2B2raM4S6CSTzhcIIjuYgdBrAlRSgF1B8/edit", "See Documentation")
+    a(href = "https://github.com/jwestreich/jayscovidgraphs/blob/main/README.md", "See Documentation")
   )
 )
 

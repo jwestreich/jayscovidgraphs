@@ -97,35 +97,5 @@ daily_pop_smooth <- daily_pop_smooth %>%
     new_deaths_per100k_smooth = pmin(new_deaths_per100k_smooth, 6)
   )
 
-write_csv(daily_pop_smooth,"C:\\Users\\jwest\\Documents\\COVID\\R\\processed.csv")
-
-for (state in us_states) {
-  state_df <- daily_pop_smooth[daily_pop_smooth$state == state, ]
-  p1 <- ggplot(state_df, aes(x = date)) +
-    geom_bar(aes(y = new_cases_per100k), stat = "identity", fill = "steelblue3") +
-    geom_line(aes(y = new_cases_per100k_smooth)) +
-    labs(title = "New Daily Confirmed Cases") +
-    ylim(0, 500)+
-    theme_classic()+
-    scale_x_date(limits=c(as.Date("2020-01-01"), as.Date("2023-01-01")), breaks=c(as.Date("2020-01-01"), as.Date("2020-07-01"), as.Date("2021-01-01"), as.Date("2021-07-01"), as.Date("2022-01-01"), as.Date("2022-07-01"), as.Date("2023-01-01")), labels=date_format("%m/%y")) +
-    labs(x="Date")+
-    labs(y = "New Cases per 100,000 Residents") +
-    labs(caption = " ")+
-    theme(panel.grid.major.y = element_line(color = "gray", size = 0.2),
-          plot.title = element_text(hjust = 0.5))
-  p2 <- ggplot(state_df, aes(x = date)) +
-    geom_bar(aes(y = new_deaths_per100k), stat = "identity", fill = "maroon") +
-    geom_line(aes(y = new_deaths_per100k_smooth)) +
-    labs(title = "New Daily Confirmed Deaths") +
-    theme_classic()+
-    scale_x_date(limits=c(as.Date("2020-01-01"), as.Date("2023-01-01")), breaks=c(as.Date("2020-01-01"), as.Date("2020-07-01"), as.Date("2021-01-01"), as.Date("2021-07-01"), as.Date("2022-01-01"), as.Date("2022-07-01"), as.Date("2023-01-01")), labels=date_format("%m/%y")) +
-    labs(x="Date")+
-    labs(y = "New Deaths per 100,000 Residents") +
-    labs(caption = "Data from Johns Hopkins University")+
-    theme(panel.grid.major.y = element_line(color = "gray", size = 0.2),
-          plot.title = element_text(hjust = 0.5))+
-    scale_y_continuous(limits = c(0, 6), breaks = seq(0, 6, by = 1))
-  p <- p1+p2 +
-    plot_annotation(title=state, subtitle="COVID-19 Trends for New Daily Cases and Deaths\nPer 100,000 Residents",theme=theme(plot.title=element_text(hjust=0.5, size=14,     face="bold"),plot.subtitle=element_text(hjust=0.5, size=14)))
-  ggsave(filename = paste("C:/Users/jwest/Documents/COVID/R/Graphs/", state, ".png", sep = ""), plot = p, width = 10, height = 6)
-}
+#write daily_pop_smooth as process.csv to your own folder location
+write_csv(daily_pop_smooth,~processed.csv)
